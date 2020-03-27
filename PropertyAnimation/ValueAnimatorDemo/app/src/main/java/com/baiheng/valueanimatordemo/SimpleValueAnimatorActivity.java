@@ -2,6 +2,7 @@ package com.baiheng.valueanimatordemo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.AnimatorInflater;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.view.View;
@@ -44,16 +45,25 @@ public class SimpleValueAnimatorActivity extends AppCompatActivity {
      * 实现平移动画
      */
     public void doTranslateAnimation() {
-        ValueAnimator valueAnimator = ValueAnimator.ofInt(0,500);
+//        ValueAnimator valueAnimator = ValueAnimator.ofInt(0,500);
+//        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                int curValue = (int) valueAnimator.getAnimatedValue();
+//                mTv.layout(curValue, curValue,curValue + mTv.getWidth(), curValue + mTv.getHeight());
+//            }
+//        });
+//        valueAnimator.setDuration(1000);
+//        valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+//        valueAnimator.start();
+        ValueAnimator valueAnimator = (ValueAnimator) AnimatorInflater.loadAnimator(this, R.animator.value_animator_demo);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int curValue = (int) valueAnimator.getAnimatedValue();
-                mTv.layout(curValue, curValue,curValue + mTv.getWidth(), curValue + mTv.getHeight());
+                mTv.setY((Float) valueAnimator.getAnimatedValue());
             }
         });
-        valueAnimator.setDuration(1000);
-        valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
         valueAnimator.start();
+
     }
 }
